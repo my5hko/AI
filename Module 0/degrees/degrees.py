@@ -61,9 +61,9 @@ def main():
     print("Loading data...")
     load_data(directory)
     print("Data loaded.")
-    print(people)
+    # print(people)
     # print(names)
-    print(movies)
+    # print(movies)
 
     source = person_id_for_name(input("Name: "))
     if source is None:
@@ -94,6 +94,51 @@ def shortest_path(source, target):
 
     If no possible path, returns None.
     """
+    
+    root = Node(source, [], neighbors_for_person(source))
+    frontier = QueueFrontier()
+    frontier.add(root)
+    path = []
+    checked = set()
+
+#    print(neighbors_for_person(source))
+#    n = 0
+#    while n < 10 and not frontier.empty():
+    while not frontier.empty():
+#        n += 1
+#        print(n)
+        node = frontier.remove()
+        for action in node.action:
+            path = node.parent + [action]
+#            print(node.state)
+#            print(path)
+            if action[1] == target:
+                return path
+            else:
+                if action[1] not in checked:
+                    checked.add(action[1])
+#                    print(checked)
+                    frontier.add(Node(action[1], path, neighbors_for_person(action[1])))
+#        for front in frontier.frontier:
+#            print(front.state, front.parent, front.action)
+
+    
+    return None
+
+
+    # neighbors.frontier = list(neighbors_for_person(source))
+    
+    # path = [neighbor for neighbor in neighbors.frontier if neighbor[1] == target]
+    # print(path)
+    # if path:
+    #     return path
+    # else:
+    #     return None
+    # print("source")
+    # print(source_neighbors)
+    # target_neighbors = neighbors_for_person(target)
+    # print("target")
+    # print(target_neighbors)
 
     # TODO
     raise NotImplementedError
@@ -133,8 +178,11 @@ def neighbors_for_person(person_id):
     movie_ids = people[person_id]["movies"]
     neighbors = set()
     for movie_id in movie_ids:
-        for person_id in movies[movie_id]["stars"]:
-            neighbors.add((movie_id, person_id))
+#        for person_id in movies[movie_id]["stars"]:
+#            neighbors.add((movie_id, person_id))
+        for neighbor in movies[movie_id]["stars"] :
+            if neighbor != person_id:
+                neighbors.add((movie_id, neighbor))
     return neighbors
 
 
