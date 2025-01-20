@@ -64,6 +64,8 @@ def main():
     # print(people)
     # print(names)
     # print(movies)
+    search = True
+
 
     # source = person_id_for_name(input("Name: "))
     # if source is None:
@@ -71,12 +73,19 @@ def main():
     # target = person_id_for_name(input("Name: "))
     # if target is None:
     #     sys.exit("Person not found.")
+    while search :
+        searching()
+        search = input("Would you like to repeat search? Press y to repeat, any other key to Exit: ").lower() == "y"
+    else:
+        sys.exit("Exit!")
 
 
-    print("Searching...")
+ 
+def searching():
     source, target = optimize_source()
+    print("Searching...")
     path = shortest_path(source, target)
-    print("Finished")
+    print("Search finished")
     
     if path is None:
         print("Not connected.")
@@ -91,6 +100,17 @@ def main():
             print(f"{i + 1}: {person1} and {person2} starred in {movie}")
 
 def optimize_source():
+    """
+    Optimize the source and target for a given person to use the person with less number of movies as a source to shorten search time
+
+    Parameters:
+    - source (str): The name of the source person.
+    - target (str): The name of the target person.
+
+    Returns:
+    - source (str): The optimized source person.
+    - target (str): The optimized target person.
+    """
     source = person_id_for_name(input("Name: "))
     if source is None:
         sys.exit("Person not found.")
@@ -144,7 +164,25 @@ def shortest_path(source, target):
     
     return None
 
+
 def check_node(node, target):
+    """
+    Check if the target is present in the node's action.
+
+    Parameters:
+    node (object): The node object to be checked.
+    target (object): The target object to be searched for in the node's action.
+
+    Returns:
+    list: The path from the root node to the target node if found, otherwise None.
+    """
+    for action in node.action:
+        path = node.parent + [action]
+#            print(node.state)
+#            print(path)
+        if action[1] == target:
+            return path
+
     for action in node.action:
             path = node.parent + [action]
 #            print(node.state)
