@@ -19,6 +19,8 @@ moveFont = pygame.font.Font("OpenSans-Regular.ttf", 60)
 
 user = None
 board = ttt.initial_state()
+if board is None:
+    raise ValueError("The initial state of the board should not be None")
 ai_turn = False
 
 while True:
