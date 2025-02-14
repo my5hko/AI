@@ -229,8 +229,19 @@ class MinesweeperAI():
                 self.knowledge.remove(sentence)
         print('safes:', self.safes)
         print('mines:', self.mines)
-#        for sentence1, sentence2 in itertools.combinations(self.knowledge, 2):
-#            if sentence1.cells.issubset(sentence2.cells):
+        for sentence1, sentence2 in itertools.combinations(self.knowledge, 2):
+            if sentence1.cells.issubset(sentence2.cells):
+                new_sentence = Sentence(sentence2.cells - sentence1.cells, sentence2.count - sentence1.count)
+                if new_sentence not in self.knowledge and len(new_sentence.cells)>0:
+                    self.knowledge.append(new_sentence)
+                    self.knowledge.remove(sentence2)
+            if sentence2.cells.issubset(sentence1.cells):
+                new_sentence = Sentence(sentence1.cells - sentence2.cells, sentence1.count - sentence2.count)
+                if new_sentence not in self.knowledge and len(new_sentence.cells)>0:
+                    self.knowledge.append(new_sentence)
+                    self.knowledge.remove(sentence1)
+        print('knowledge:', [str(knowledge) for knowledge in self.knowledge])
+
 
     def make_safe_move(self):
         """
