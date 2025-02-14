@@ -108,8 +108,6 @@ class Sentence():
         """
         if self.count == len(self.cells):
             return self.cells
-    
-#        raise NotImplementedError 
 
     def known_safes(self):
         """
@@ -118,8 +116,6 @@ class Sentence():
         """
         if self.count == 0:
             return self.cells
-
-#        raise NotImplementedError
 
     def mark_mine(self, cell):
         """
@@ -206,7 +202,7 @@ class MinesweeperAI():
             new_knowledge.mark_mine(mine) #4 remove known mines from new sentence
         for safe in self.safes:
             new_knowledge.mark_safe(safe) #4 remove known safes from new sentence
-#4 checking if all cells in new knowledge are mines or safes, if yes, adding them to known mines or safes, elseading new sentence to knowledge base
+#4 checking if all cells in new knowledge are mines or safes, if yes, adding them to known mines or safes, else ading new sentence to knowledge base
         if new_knowledge.known_mines() != None:
             self.mines.update(new_knowledge.known_mines())
         elif new_knowledge.known_safes() != None: 
@@ -220,25 +216,21 @@ class MinesweeperAI():
             sentence.cells.difference_update(self.safes) #4 remove known safes from all sentences
             print('with mines:', sentence)
             for mine in self.mines:
-                sentence.mark_mine(mine) #4 remove known mines from new sentence
+                sentence.mark_mine(mine) #4 remove known mines from all sentences
             print('without mines:', sentence)
             
-            if sentence.known_mines() != None:
+#5 if all cells in sentence are mines, adding them to known mines and removing sentence from knowledge base
+            if sentence.known_mines() != None: 
                 self.mines.update(sentence.known_mines())
                 self.knowledge.remove(sentence)
+#5 if all cells in sentence are safes, adding them to known safes and removing sentence from knowledge base
             elif sentence.known_safes() != None:
                 self.safes.update(sentence.known_safes())
                 self.knowledge.remove(sentence)
         print('safes:', self.safes)
         print('mines:', self.mines)
 #        for sentence1, sentence2 in itertools.combinations(self.knowledge, 2):
-
-        
-
-
-
-
-#        raise NotImplementedError
+#            if sentence1.cells.issubset(sentence2.cells):
 
     def make_safe_move(self):
         """
@@ -253,8 +245,6 @@ class MinesweeperAI():
         if safe_moves:
             return safe_moves.pop()
         return None
-
-#        raise NotImplementedError
 
     def make_random_move(self):
         """
@@ -272,6 +262,3 @@ class MinesweeperAI():
             return moves.pop()
         return None
 
-
-
-#        raise NotImplementedError
