@@ -229,8 +229,9 @@ class MinesweeperAI():
                 self.knowledge.remove(sentence)
         print('safes:', self.safes)
         print('mines:', self.mines)
-        for sentence1, sentence2 in itertools.combinations(self.knowledge, 2):
-            if sentence1.cells.issubset(sentence2.cells):
+        for sentence1, sentence2 in itertools.combinations(self.knowledge, 2): #5 comparing all pairs of sentences
+#5 if one sentence is subset of another, creating new sentence and adding it to knowledge base
+            if sentence1.cells.issubset(sentence2.cells): 
                 new_sentence = Sentence(sentence2.cells - sentence1.cells, sentence2.count - sentence1.count)
                 if new_sentence not in self.knowledge and len(new_sentence.cells)>0:
                     self.knowledge.append(new_sentence)
