@@ -160,7 +160,7 @@ def joint_probability(people, one_gene, two_genes, have_trait):
         # ic(person, gene, trait)
         if not people[person]["mother"] and not people[person]["father"]: # if person has no mother and father, then gene is unconditional
             prob = PROBS["gene"][gene] * PROBS["trait"][gene][trait] # conditional probability for person
-            p*=prob # multiplying all probabilities to get joint probability
+            p *= prob # multiplying all probabilities to get joint probability
             # ic(person, prob, p)
         else: #if person has parents, then checking if both parents have information about trait and can pass gene
             mother = people[person]["mother"]
@@ -181,7 +181,7 @@ def joint_probability(people, one_gene, two_genes, have_trait):
             else: #if caluclating probability for no gene, then probability is product of both parents not passing gene
                 prob = (1 - passed[mother]) * (1 - passed[father])
             prob *= PROBS["trait"][gene][trait] #conditional probability for person
-            p*=prob # multiplying all probabilities to get joint probability
+            p *= prob # multiplying all probabilities to get joint probability
             # ic(person, prob, p)
     return p
 #    raise NotImplementedError
