@@ -174,11 +174,11 @@ def joint_probability(people, one_gene, two_genes, have_trait):
                 else:
                     passed[parent] = PROBS["mutation"] #if parent has no gene, then 1% chance of mutation
             prob = 1
-            if gene == 2: #if caluclating probability for two genes, then probability is product of both parents passing gene
+            if gene == 2: #calculating probability for two genes, then probability is product of both parents passing gene
                 prob = passed[mother] * passed[father]
-            elif gene == 1: #if caluclating probability for one gene, then probability is product of one parent passing gene and other not passing gene
+            elif gene == 1: #calculating probability for one gene, then probability is product of one parent passing gene and other not passing gene
                 prob = passed[mother] * (1 - passed[father]) + (1 - passed[mother]) * passed[father]
-            else: #if caluclating probability for no gene, then probability is product of both parents not passing gene
+            else: #calculating probability for no gene, then probability is product of both parents not passing gene
                 prob = (1 - passed[mother]) * (1 - passed[father])
             prob *= PROBS["trait"][gene][trait] #conditional probability for person
             p *= prob # multiplying all probabilities to get joint probability
