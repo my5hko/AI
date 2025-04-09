@@ -16,9 +16,9 @@ class CrosswordCreator():
             for var in self.crossword.variables
         }
         # debug prints
-        ic(self.crossword.overlaps)
-        for var in self.crossword.variables:
-            ic(var, self.crossword.neighbors(var)) 
+        # ic(self.crossword.overlaps)
+        # for var in self.crossword.variables:
+        #     ic(var, self.crossword.neighbors(var)) 
 
     def letter_grid(self, assignment):
         """
@@ -96,7 +96,7 @@ class CrosswordCreator():
         """
         self.enforce_node_consistency()
         self.ac3()
-        ic(self.domains)
+        # ic(self.domains)
         
         return self.backtrack(dict())
 
@@ -116,7 +116,7 @@ class CrosswordCreator():
             # for word in list(self.domains[var]):  # using set.remove() method
             #     if len(word) != var.length:
             #         self.domains[var].remove(word)
-        ic(self.domains)
+        # ic(self.domains)
 
     def revise(self, x, y):
         """
@@ -138,8 +138,6 @@ class CrosswordCreator():
                     revised = True
         return revised
 
-        # raise NotImplementedError
-
     def ac3(self, arcs=None):
         """
         Update `self.domains` such that each variable is arc consistent.
@@ -153,7 +151,7 @@ class CrosswordCreator():
             arcs = [(x,y) for x in self.crossword.variables for y in self.crossword.neighbors(x)]
         queue = arcs.copy()
         while queue:
-            ic (queue)
+            # ic (queue)
             x, y = queue.pop(0)
             if self.revise(x,y):
                 if len(self.domains[x]) == 0:
@@ -260,8 +258,6 @@ class CrosswordCreator():
             del assignment[var]
         # If no assignment is possible, return None
         return None
-        # raise NotImplementedError
-
 
 def main():
 
