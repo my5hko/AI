@@ -81,11 +81,11 @@ class CrosswordCreator():
                 if self.crossword.structure[i][j]:
                     draw.rectangle(rect, fill="white")
                     if letters[i][j]:
-                        _, _, w, h = draw.textbbox((0, 0), letters[i][j], font=font)
+                        _, _, w, h = draw.textbbox((0, 0), letters[i][j], font=font) # type: ignore
                         draw.text(
                             (rect[0][0] + ((interior_size - w) / 2),
                              rect[0][1] + ((interior_size - h) / 2) - 10),
-                            letters[i][j], fill="black", font=font
+                            letters[i][j], fill="black", font=font # type: ignore
                         )
 
         img.save(filename)
